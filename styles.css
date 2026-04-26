@@ -26,7 +26,6 @@ body {
 .nav-logo {
   font-size: 24px;
   font-weight: 900;
-  letter-spacing: 1px;
 }
 
 .nav-links {
@@ -34,7 +33,9 @@ body {
   gap: 12px;
 }
 
-.nav-links button {
+.nav-links button,
+.game-buttons button,
+.final-center button {
   border: none;
   background: #9cff32;
   color: #071207;
@@ -44,12 +45,10 @@ body {
   cursor: pointer;
 }
 
-.nav-links button:hover {
+.nav-links button:hover,
+.game-buttons button:hover,
+.final-center button:hover {
   transform: translateY(-2px);
-}
-
-.app {
-  min-height: calc(100vh - 70px);
 }
 
 .view {
@@ -78,33 +77,14 @@ body {
   margin-bottom: 25px;
 }
 
-.rules-card {
-  max-width: 700px;
-  margin: 0 auto 25px;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 24px;
-  border-radius: 22px;
-  text-align: left;
-}
-
-.rules-card h2 {
-  color: #9cff32;
-  margin-bottom: 14px;
-}
-
-.rules-card li {
-  margin: 10px 0;
-  font-size: 17px;
-}
-
 .choose-text {
-  margin: 30px 0 18px;
+  margin: 25px 0 18px;
   font-size: 30px;
 }
 
 .stadium-grid {
   max-width: 1050px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -131,11 +111,6 @@ body {
   margin-bottom: 10px;
 }
 
-.stadium-card p {
-  font-size: 16px;
-  line-height: 1.4;
-}
-
 .field-card {
   background: linear-gradient(135deg, #2f9d4b, #0b4d24);
 }
@@ -152,6 +127,29 @@ body {
   background: linear-gradient(135deg, #d7b760, #1688a8);
 }
 
+.rules-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 24px;
+  border-radius: 22px;
+  text-align: center;
+}
+
+.rules-card h2 {
+  color: #9cff32;
+  margin-bottom: 14px;
+}
+
+.rules-card ul {
+  list-style-position: inside;
+}
+
+.rules-card li {
+  margin: 10px 0;
+  font-size: 17px;
+}
+
 /* GAME */
 
 #gameView {
@@ -162,10 +160,11 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
-.game-header div {
+.game-header div,
+.penalty-scoreboard {
   background: rgba(0, 0, 0, 0.68);
   padding: 16px;
   border-radius: 18px;
@@ -183,6 +182,42 @@ body {
   font-size: 26px;
 }
 
+.penalty-scoreboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.circle-row {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.score-circle {
+  width: 22px;
+  height: 22px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: inline-block;
+  background: transparent;
+}
+
+.goal-circle {
+  background: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.save-circle {
+  background: #e63946;
+  border-color: #e63946;
+}
+
+/* MATCH AREA */
+
 .match-area {
   position: relative;
   height: 610px;
@@ -195,53 +230,90 @@ body {
 
 .field-ground {
   background:
-    linear-gradient(transparent 15%, rgba(0, 0, 0, 0.2)),
+    linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.2)),
     repeating-linear-gradient(
       0deg,
       #2b8a3e,
-      #2b8a3e 80px,
-      #237232 80px,
-      #237232 160px
+      #2b8a3e 90px,
+      #237232 90px,
+      #237232 180px
     );
+}
+
+.field-ground .top-decoration::before {
+  content: "👥 👥 👥 👥 👥 👥 👥 👥 👥";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  opacity: 0.75;
 }
 
 .indoor-ground {
   background:
-    radial-gradient(circle at center, rgba(255,255,255,0.12), transparent 40%),
-    linear-gradient(90deg, rgba(255,255,255,0.12) 2px, transparent 2px),
-    linear-gradient(0deg, rgba(255,255,255,0.12) 2px, transparent 2px),
-    linear-gradient(135deg, #394150, #1a1f2c);
-  background-size: auto, 80px 80px, 80px 80px, auto;
+    linear-gradient(rgba(255,255,255,0.08), transparent),
+    linear-gradient(135deg, #424b5e, #1b2030);
+}
+
+.indoor-ground .top-decoration::before {
+  content: "🏟️  🏟️  🏟️";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34px;
+  opacity: 0.85;
 }
 
 .street-ground {
   background:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12), transparent 8%),
-    radial-gradient(circle at 70% 70%, rgba(255,255,255,0.08), transparent 10%),
-    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+    radial-gradient(circle at 20% 35%, rgba(255,255,255,0.12), transparent 8%),
+    radial-gradient(circle at 78% 70%, rgba(255,255,255,0.1), transparent 9%),
     linear-gradient(135deg, #4a4a4a, #222);
-  background-size: auto, auto, 55px 55px, 55px 55px, auto;
+}
+
+.street-ground .top-decoration::before {
+  content: "PENALTY TOURS";
+  position: absolute;
+  top: 22px;
+  left: 35px;
+  font-size: 38px;
+  font-weight: 900;
+  color: #9cff32;
+  transform: rotate(-5deg);
+  text-shadow: 3px 3px #111;
+  opacity: 0.8;
 }
 
 .beach-ground {
   background:
-    radial-gradient(circle at 25% 45%, rgba(255,255,255,0.25), transparent 4%),
-    radial-gradient(circle at 65% 65%, rgba(255,255,255,0.18), transparent 5%),
+    radial-gradient(circle at 25% 45%, rgba(255,255,255,0.22), transparent 5%),
+    radial-gradient(circle at 65% 65%, rgba(255,255,255,0.15), transparent 6%),
     repeating-linear-gradient(
       25deg,
       #d9b765,
-      #d9b765 35px,
-      #caa653 35px,
-      #caa653 70px
+      #d9b765 50px,
+      #caa653 50px,
+      #caa653 100px
     );
+}
+
+.beach-ground .top-decoration::before {
+  content: "🏖️  🌴  ⛱️  🌊  ⛱️  🌴  🏖️";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34px;
+  opacity: 0.9;
 }
 
 /* GOAL */
 
 .goal {
   position: absolute;
-  top: 45px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   width: 68%;
@@ -257,19 +329,17 @@ body {
 }
 
 .goal button {
-  background: rgba(255,255,255,0.08);
-  color: white;
+  background: rgba(255,255,255,0.04);
+  color: transparent;
   border: 2px solid rgba(255,255,255,0.65);
-  font-size: 18px;
-  font-weight: bold;
   cursor: pointer;
 }
 
 .goal button:hover {
-  background: rgba(156, 255, 50, 0.42);
+  background: rgba(156, 255, 50, 0.35);
 }
 
-/* GRAPHIC PLAYER */
+/* PLAYER */
 
 .player {
   position: absolute;
@@ -319,14 +389,6 @@ body {
 
 .blue-player .player-shirt {
   background: #2f80ed;
-}
-
-.red-player {
-  filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.9));
-}
-
-.blue-player {
-  filter: drop-shadow(0 0 10px rgba(47, 128, 237, 0.9));
 }
 
 .kick .leg-two {
@@ -402,15 +464,7 @@ body {
   background: #2f80ed;
 }
 
-.red-keeper {
-  filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.9));
-}
-
-.blue-keeper {
-  filter: drop-shadow(0 0 10px rgba(47, 128, 237, 0.9));
-}
-
-/* 6 KEEPER ANIMATIONS */
+/* KEEPER ANIMATIONS */
 
 .save-top-left {
   transform: translate(-270px, -125px) rotate(-35deg);
@@ -441,7 +495,7 @@ body {
 .penalty-spot {
   position: absolute;
   left: 50%;
-  bottom: 120px;
+  bottom: 132px;
   width: 16px;
   height: 16px;
   background: white;
@@ -452,39 +506,45 @@ body {
 .ball {
   position: absolute;
   left: 50%;
-  bottom: 132px;
+  bottom: 128px;
   transform: translateX(-50%);
   font-size: 34px;
   z-index: 9;
   transition: 0.65s ease-in-out;
 }
 
-.ball-top-left {
+.ball-top-left,
+.contact-top-left {
   left: 23%;
   bottom: 425px;
 }
 
-.ball-top-center {
+.ball-top-center,
+.contact-top-center {
   left: 50%;
   bottom: 425px;
 }
 
-.ball-top-right {
+.ball-top-right,
+.contact-top-right {
   left: 77%;
   bottom: 425px;
 }
 
-.ball-low-left {
+.ball-low-left,
+.contact-low-left {
   left: 23%;
   bottom: 280px;
 }
 
-.ball-low-center {
+.ball-low-center,
+.contact-low-center {
   left: 50%;
   bottom: 280px;
 }
 
-.ball-low-right {
+.ball-low-right,
+.contact-low-right {
   left: 77%;
   bottom: 280px;
 }
@@ -527,15 +587,15 @@ body {
   gap: 14px;
 }
 
-.game-buttons button,
-.final-center button {
-  border: none;
-  background: #9cff32;
-  color: #071207;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
+/* SUDDEN DEATH */
+
+.sudden-dark {
+  background: #050505 !important;
+}
+
+.sudden-dark .match-area {
+  filter: brightness(0.75);
+  box-shadow: 0 0 35px rgba(255, 0, 0, 0.45);
 }
 
 /* FINAL MODAL */
@@ -629,7 +689,31 @@ body {
   border-radius: 16px;
 }
 
-/* BODY THEMES */
+/* CONFETTI */
+
+#confettiBox {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 250;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 18px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+/* THEMES */
 
 .theme-field {
   background: linear-gradient(135deg, #0b3d1f, #123f2b);
@@ -651,7 +735,8 @@ body {
 
 @media (max-width: 900px) {
   .stadium-grid,
-  .game-header {
+  .game-header,
+  .penalty-scoreboard {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -682,6 +767,7 @@ body {
 
   .stadium-grid,
   .game-header,
+  .penalty-scoreboard,
   .stats {
     grid-template-columns: 1fr;
   }
@@ -693,10 +779,6 @@ body {
   .goal {
     width: 95%;
     height: 260px;
-  }
-
-  .goal button {
-    font-size: 13px;
   }
 
   .player {
