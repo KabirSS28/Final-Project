@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Penalty Tours</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-field">
+  <nav class="navbar">
+    <div class="nav-logo">⚽ Penalty Tours</div>
+    <div class="nav-links">
+      <button onclick="goHome()">Home</button>
+      <button onclick="resetMatch()">Restart</button>
+    </div>
+  </nav>
+
+  <main class="app">
+
+    <!-- HOME + STADIUM SELECTION -->
+    <section id="homeView" class="view active home-view">
+      <h1>Penalty Tours</h1>
+      <p class="subtitle">Choose a stadium and win the penalty shootout.</p>
+
+      <div class="rules-card">
+        <h2>Rules</h2>
+        <ul>
+          <li>Choose a stadium below.</li>
+          <li>Play 5 penalty rounds.</li>
+          <li>You play as both shooter and goalkeeper.</li>
+          <li>Click one of 6 goal zones to shoot or save.</li>
+          <li>You are the red team. The computer is the blue team.</li>
+          <li>Score more goals than the computer to win.</li>
+        </ul>
+      </div>
+
+      <h2 class="choose-text">Choose Your Stadium</h2>
+
+      <div class="stadium-grid">
+        <button class="stadium-card field-card" onclick="chooseStadium('Field')">
+          <h2>Field</h2>
+          <p>Classic green football pitch.</p>
+        </button>
+
+        <button class="stadium-card indoor-card" onclick="chooseStadium('Indoor Court')">
+          <h2>Indoor Court</h2>
+          <p>Fast indoor football surface.</p>
+        </button>
+
+        <button class="stadium-card street-card" onclick="chooseStadium('Street Football')">
+          <h2>Street Football</h2>
+          <p>Concrete street football ground.</p>
+        </button>
+
+        <button class="stadium-card beach-card" onclick="chooseStadium('Beach')">
+          <h2>Beach</h2>
+          <p>Penalty shootout on sand.</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section id="gameView" class="view">
+      <div class="game-header">
+        <div>
+          <p>Stadium</p>
+          <h2 id="stadiumName">Field</h2>
+        </div>
+
+        <div>
+          <p>Round</p>
+          <h2><span id="roundText">1</span> / 5</h2>
+        </div>
+
+        <div>
+          <p>Score</p>
+          <h2><span id="userScoreText">0</span> - <span id="computerScoreText">0</span></h2>
+        </div>
+
+        <div>
+          <p>Current Role</p>
+          <h2 id="roleText">Shooter</h2>
+        </div>
+      </div>
+
+      <div id="matchArea" class="match-area field-ground">
+        <div id="resultPopup" class="shot-popup">GOAL!</div>
+
+        <div class="goal">
+          <div id="keeper" class="keeper blue-keeper">
+            <div class="keeper-head"></div>
+            <div class="keeper-body"></div>
+            <div class="keeper-glove left-glove"></div>
+            <div class="keeper-glove right-glove"></div>
+          </div>
+
+          <button data-zone="top-left">Top Left</button>
+          <button data-zone="top-center">Top Center</button>
+          <button data-zone="top-right">Top Right</button>
+          <button data-zone="low-left">Low Left</button>
+          <button data-zone="low-center">Low Center</button>
+          <button data-zone="low-right">Low Right</button>
+        </div>
+
+        <div class="penalty-spot"></div>
+        <div id="ball" class="ball">⚽</div>
+
+        <div id="shooter" class="player red-player">
+          <div class="player-head"></div>
+          <div class="player-shirt"></div>
+          <div class="player-leg leg-one"></div>
+          <div class="player-leg leg-two"></div>
+        </div>
+      </div>
+
+      <p id="instructionText" class="instruction">Click a zone to shoot.</p>
+
+      <div class="game-buttons">
+        <button onclick="resetMatch()">Restart Match</button>
+        <button onclick="goHome()">Change Stadium</button>
+      </div>
+    </section>
+
+    <!-- FINAL POPUP -->
+    <div id="finalModal" class="final-modal hidden">
+      <div class="final-card">
+        <div class="final-player final-red">
+          <div class="final-head"></div>
+          <div class="final-body"></div>
+        </div>
+
+        <div class="final-center">
+          <h2>Full Time</h2>
+          <h1 id="finalScore">0 - 0</h1>
+          <p id="finalMessage">Draw!</p>
+
+          <div class="stats">
+            <div>
+              <h3>Red Team</h3>
+              <p>Goals Scored: <span id="userGoalsStat">0</span></p>
+              <p>Goals Saved: <span id="userSavesStat">0</span></p>
+            </div>
+
+            <div>
+              <h3>Blue Team</h3>
+              <p>Goals Scored: <span id="computerGoalsStat">0</span></p>
+              <p>Goals Saved: <span id="computerSavesStat">0</span></p>
+            </div>
+          </div>
+
+          <button onclick="resetMatch()">Play Again</button>
+          <button onclick="goHome()">Choose Stadium</button>
+        </div>
+
+        <div class="final-player final-blue">
+          <div class="final-head"></div>
+          <div class="final-body"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const zones = [
+      "top-left",
+      "top-center",
+      "top-right",
+      "low-left",
+      "low-center",
+      "low-right"
+    ];
+
+    let round = 1;
+    let userScore = 0;
+    let computerScore = 0;
+    let userSaves = 0;
+    let computerSaves = 0;
+    let userIsShooting = true;
+    let selectedStadium = "Field";
+    let locked = false;
+
+    const homeView = document.getElementById("homeView");
+    const gameView = document.getElementById("gameView");
+    const matchArea = document.getElementById("matchArea");
+
+    const roundText = document.getElementById("roundText");
+    const userScoreText = document.getElementById("userScoreText");
+    const computerScoreText = document.getElementById("computerScoreText");
+    const roleText = document.getElementById("roleText");
+    const instructionText = document.getElementById("instructionText");
+    const stadiumName = document.getElementById("stadiumName");
+
+    const shooter = document.getElementById("shooter");
+    const keeper = document.getElementById("keeper");
+    const ball = document.getElementById("ball");
+    const resultPopup = document.getElementById("resultPopup");
+    const finalModal = document.getElementById("finalModal");
+
+    document.querySelectorAll(".goal button").forEach(button => {
+      button.addEventListener("click", () => {
+        if (!locked) {
+          playTurn(button.dataset.zone);
+        }
+      });
+    });
+
+    function showView(viewName) {
+      homeView.classList.remove("active");
+      gameView.classList.remove("active");
+
+      if (viewName === "home") {
+        homeView.classList.add("active");
+      } else {
+        gameView.classList.add("active");
+      }
+    }
+
+    function goHome() {
+      finalModal.classList.add("hidden");
+      resetMatch(false);
+      showView("home");
+    }
+
+    function chooseStadium(name) {
+      selectedStadium = name;
+      stadiumName.textContent = name;
+
+      document.body.className = "";
+      matchArea.className = "match-area";
+
+      if (name === "Field") {
+        document.body.classList.add("theme-field");
+        matchArea.classList.add("field-ground");
+      }
+
+      if (name === "Indoor Court") {
+        document.body.classList.add("theme-indoor");
+        matchArea.classList.add("indoor-ground");
+      }
+
+      if (name === "Street Football") {
+        document.body.classList.add("theme-street");
+        matchArea.classList.add("street-ground");
+      }
+
+      if (name === "Beach") {
+        document.body.classList.add("theme-beach");
+        matchArea.classList.add("beach-ground");
+      }
+
+      resetMatch(false);
+      showView("game");
+    }
+
+    function randomZone() {
+      return zones[Math.floor(Math.random() * zones.length)];
+    }
+
+    function playTurn(userChoice) {
+      locked = true;
+
+      const computerChoice = randomZone();
+
+      resetAnimations();
+
+      if (userIsShooting) {
+        animateShot(userChoice, computerChoice, "user");
+
+        setTimeout(() => {
+          if (userChoice === computerChoice) {
+            computerSaves++;
+            showShotPopup("SAVE!");
+          } else {
+            userScore++;
+            showShotPopup("GOAL!");
+          }
+
+          updateScore();
+
+          setTimeout(() => {
+            userIsShooting = false;
+            roleText.textContent = "Goalkeeper";
+            instructionText.textContent = "Computer is shooting. Click a zone to save.";
+            resetBall();
+            locked = false;
+          }, 1500);
+        }, 850);
+
+      } else {
+        animateShot(computerChoice, userChoice, "computer");
+
+        setTimeout(() => {
+          if (userChoice === computerChoice) {
+            userSaves++;
+            showShotPopup("SAVE!");
+          } else {
+            computerScore++;
+            showShotPopup("COMPUTER GOAL!");
+          }
+
+          updateScore();
+
+          setTimeout(() => {
+            round++;
+
+            if (round > 5) {
+              endMatch();
+              return;
+            }
+
+            userIsShooting = true;
+            roleText.textContent = "Shooter";
+            instructionText.textContent = "Click a zone to shoot.";
+            roundText.textContent = round;
+            resetBall();
+            locked = false;
+          }, 1500);
+        }, 850);
+      }
+    }
+
+    function animateShot(ballZone, keeperZone, team) {
+      if (team === "user") {
+        shooter.className = "player red-player kick";
+        keeper.className = "keeper blue-keeper " + keeperClass(keeperZone);
+      } else {
+        shooter.className = "player blue-player kick";
+        keeper.className = "keeper red-keeper " + keeperClass(keeperZone);
+      }
+
+      setTimeout(() => {
+        ball.className = "ball ball-" + ballZone;
+      }, 380);
+    }
+
+    function keeperClass(zone) {
+      return "save-" + zone;
+    }
+
+    function showShotPopup(text) {
+      resultPopup.textContent = text;
+      resultPopup.classList.add("show");
+
+      setTimeout(() => {
+        resultPopup.classList.remove("show");
+      }, 1500);
+    }
+
+    function resetAnimations() {
+      shooter.className = userIsShooting ? "player red-player" : "player blue-player";
+      keeper.className = userIsShooting ? "keeper blue-keeper" : "keeper red-keeper";
+      ball.className = "ball";
+    }
+
+    function resetBall() {
+      ball.className = "ball";
+      resetAnimations();
+    }
+
+    function updateScore() {
+      userScoreText.textContent = userScore;
+      computerScoreText.textContent = computerScore;
+    }
+
+    function endMatch() {
+      locked = true;
+
+      document.getElementById("finalScore").textContent = `${userScore} - ${computerScore}`;
+      document.getElementById("userGoalsStat").textContent = userScore;
+      document.getElementById("computerGoalsStat").textContent = computerScore;
+      document.getElementById("userSavesStat").textContent = userSaves;
+      document.getElementById("computerSavesStat").textContent = computerSaves;
+
+      if (userScore > computerScore) {
+        document.getElementById("finalMessage").textContent = "Red Team wins the shootout!";
+      } else if (computerScore > userScore) {
+        document.getElementById("finalMessage").textContent = "Blue Team wins the shootout.";
+      } else {
+        document.getElementById("finalMessage").textContent = "The match ends in a draw.";
+      }
+
+      finalModal.classList.remove("hidden");
+    }
+
+    function resetMatch(closeModal = true) {
+      round = 1;
+      userScore = 0;
+      computerScore = 0;
+      userSaves = 0;
+      computerSaves = 0;
+      userIsShooting = true;
+      locked = false;
+
+      roundText.textContent = round;
+      userScoreText.textContent = userScore;
+      computerScoreText.textContent = computerScore;
+      roleText.textContent = "Shooter";
+      instructionText.textContent = "Click a zone to shoot.";
+
+      resetBall();
+
+      if (closeModal) {
+        finalModal.classList.add("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
