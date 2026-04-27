@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+/* GENERAL */
+
 body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
@@ -111,6 +113,10 @@ body {
   margin-bottom: 10px;
 }
 
+.stadium-card p {
+  line-height: 1.4;
+}
+
 .field-card {
   background: linear-gradient(135deg, #2f9d4b, #0b4d24);
 }
@@ -150,7 +156,7 @@ body {
   font-size: 17px;
 }
 
-/* GAME */
+/* GAME HEADER */
 
 #gameView {
   padding: 20px;
@@ -226,148 +232,254 @@ body {
   border: 4px solid rgba(255, 255, 255, 0.28);
 }
 
-/* DIFFERENT GROUNDS */
+/* Shared pitch lines */
+
+.match-area::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 375px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 -135px 0 rgba(255,255,255,0.75),
+    0 145px 0 rgba(255,255,255,0.35);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* FIELD */
 
 .field-ground {
   background:
-    linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.2)),
-    repeating-linear-gradient(
-      0deg,
-      #2b8a3e,
-      #2b8a3e 90px,
-      #237232 90px,
-      #237232 180px
-    );
+    linear-gradient(to bottom, #9ed8ef 0 75px, #8b3f2f 75px 150px, #263646 150px 215px, transparent 215px),
+    repeating-linear-gradient(0deg, #43aa14 0 70px, #38a00f 70px 140px);
 }
 
-.field-ground .top-decoration::before {
-  content: "👥 👥 👥 👥 👥 👥 👥 👥 👥";
+.field-ground::before {
+  content: "";
   position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 28px;
-  opacity: 0.75;
+  top: 0;
+  left: 0;
+  height: 150px;
+  width: 100%;
+  background:
+    linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.22) 46%, rgba(255,255,255,0.22) 48%, transparent 49%),
+    linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.22) 46%, rgba(255,255,255,0.22) 48%, transparent 49%);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 1;
 }
+
+/* INDOOR */
 
 .indoor-ground {
   background:
-    linear-gradient(rgba(255,255,255,0.08), transparent),
-    linear-gradient(135deg, #424b5e, #1b2030);
+    linear-gradient(to bottom, #202838 0 75px, #31384d 75px 150px, #151b27 150px 215px, transparent 215px),
+    repeating-linear-gradient(0deg, #30425d 0 70px, #28384f 70px 140px);
 }
 
-.indoor-ground .top-decoration::before {
-  content: "🏟️  🏟️  🏟️";
+.indoor-ground::before {
+  content: "";
   position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 34px;
-  opacity: 0.85;
+  top: 0;
+  left: 0;
+  height: 150px;
+  width: 100%;
+  background:
+    radial-gradient(circle, rgba(255,255,255,0.75) 2px, transparent 3px),
+    linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+  background-size: 28px 28px, cover;
+  pointer-events: none;
+  z-index: 1;
 }
+
+/* STREET */
 
 .street-ground {
   background:
-    radial-gradient(circle at 20% 35%, rgba(255,255,255,0.12), transparent 8%),
-    radial-gradient(circle at 78% 70%, rgba(255,255,255,0.1), transparent 9%),
-    linear-gradient(135deg, #4a4a4a, #222);
+    linear-gradient(to bottom, #9ed8ef 0 75px, #7b3d2d 75px 150px, #233647 150px 215px, transparent 215px),
+    repeating-linear-gradient(0deg, #4a4a4a 0 70px, #3d3d3d 70px 140px);
 }
 
-.street-ground .top-decoration::before {
+.street-ground::before {
   content: "PENALTY TOURS";
   position: absolute;
-  top: 22px;
-  left: 35px;
-  font-size: 38px;
-  font-weight: 900;
+  top: 158px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
   color: #9cff32;
-  transform: rotate(-5deg);
-  text-shadow: 3px 3px #111;
-  opacity: 0.8;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-shadow: 3px 3px #000, -2px -2px #000, 0 0 12px #2f80ed;
+  background:
+    linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.22) 46%, rgba(255,255,255,0.22) 48%, transparent 49%),
+    linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.22) 46%, rgba(255,255,255,0.22) 48%, transparent 49%);
+  background-size: 24px 24px;
+  height: 150px;
+  width: 100%;
+  text-align: center;
+  padding-top: 5px;
+  pointer-events: none;
+  z-index: 1;
 }
+
+/* BEACH */
 
 .beach-ground {
   background:
-    radial-gradient(circle at 25% 45%, rgba(255,255,255,0.22), transparent 5%),
-    radial-gradient(circle at 65% 65%, rgba(255,255,255,0.15), transparent 6%),
-    repeating-linear-gradient(
-      25deg,
-      #d9b765,
-      #d9b765 50px,
-      #caa653 50px,
-      #caa653 100px
-    );
+    linear-gradient(to bottom, #7fd8ff 0 95px, #1590cc 95px 145px, #f3d48a 145px 215px, transparent 215px),
+    repeating-linear-gradient(0deg, #d9b765 0 70px, #caa653 70px 140px);
 }
 
-.beach-ground .top-decoration::before {
-  content: "🏖️  🌴  ⛱️  🌊  ⛱️  🌴  🏖️";
+.beach-ground::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 150px;
+  width: 100%;
+  background: radial-gradient(circle at 85% 35%, #ffd54f 0 30px, #fbc02d 31px 42px, transparent 43px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* SCOREBOARD ABOVE GOAL */
+
+.top-decoration {
   position: absolute;
   top: 12px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 34px;
-  opacity: 0.9;
+  background: rgba(31, 45, 70, 0.9);
+  color: white;
+  padding: 10px 55px;
+  border-radius: 6px;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  z-index: 3;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+}
+
+/* AD BOARDS */
+
+.side-decoration::before {
+  content: "PENALTY TOURS";
+  position: absolute;
+  left: 0;
+  top: 185px;
+  width: 28%;
+  height: 55px;
+  background: rgba(18, 39, 56, 0.92);
+  color: #9cff32;
+  font-size: 28px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 55px;
+  letter-spacing: 2px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.side-decoration::after {
+  content: "PENALTY TOURS";
+  position: absolute;
+  right: 0;
+  top: 185px;
+  width: 28%;
+  height: 55px;
+  background: rgba(18, 39, 56, 0.92);
+  color: #9cff32;
+  font-size: 28px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 55px;
+  letter-spacing: 2px;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* GOAL */
 
 .goal {
   position: absolute;
-  top: 60px;
+  top: 105px;
   left: 50%;
   transform: translateX(-50%);
-  width: 68%;
-  height: 310px;
+  width: 58%;
+  height: 245px;
   border: 10px solid white;
+  border-bottom-width: 7px;
   background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.22) 0 2px, transparent 2px 40px),
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.22) 0 2px, transparent 2px 40px),
-    rgba(15, 40, 70, 0.48);
+    linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.55) 46%, rgba(255,255,255,0.55) 48%, transparent 49%),
+    linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.55) 46%, rgba(255,255,255,0.55) 48%, transparent 49%),
+    rgba(20, 55, 75, 0.15);
+  background-size: 26px 26px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  z-index: 5;
+  box-shadow:
+    0 8px 0 rgba(255,255,255,0.35),
+    0 18px 30px rgba(0,0,0,0.35);
+}
+
+.goal::after {
+  content: "";
+  position: absolute;
+  left: -35px;
+  right: -35px;
+  bottom: -18px;
+  height: 10px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 40px;
+  pointer-events: none;
 }
 
 .goal button {
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.03);
   color: transparent;
-  border: 2px solid rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.4);
   cursor: pointer;
 }
 
 .goal button:hover {
-  background: rgba(156, 255, 50, 0.35);
+  background: rgba(156, 255, 50, 0.28);
 }
 
 /* PLAYER */
 
 .player {
   position: absolute;
-  left: calc(50% - 110px);
-  bottom: 86px;
-  width: 70px;
-  height: 140px;
+  left: calc(50% - 125px);
+  bottom: 45px;
+  width: 95px;
+  height: 175px;
   z-index: 8;
+  transform: rotate(-18deg);
 }
 
 .player-head {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   background: #f2c49b;
   border-radius: 50%;
   margin: 0 auto;
 }
 
 .player-shirt {
-  width: 54px;
-  height: 58px;
-  border-radius: 14px 14px 8px 8px;
+  width: 65px;
+  height: 70px;
+  border-radius: 16px 16px 8px 8px;
   margin: -2px auto 0;
 }
 
 .player-leg {
-  width: 16px;
-  height: 50px;
+  width: 18px;
+  height: 60px;
   background: #111;
   position: absolute;
   bottom: 0;
@@ -376,11 +488,11 @@ body {
 }
 
 .leg-one {
-  left: 18px;
+  left: 26px;
 }
 
 .leg-two {
-  right: 18px;
+  right: 26px;
 }
 
 .red-player .player-shirt {
@@ -400,14 +512,14 @@ body {
 }
 
 @keyframes bodyKick {
-  0% { transform: translateX(0); }
-  45% { transform: translateX(24px); }
-  100% { transform: translateX(0); }
+  0% { transform: rotate(-18deg) translateX(0); }
+  45% { transform: rotate(-8deg) translateX(28px); }
+  100% { transform: rotate(-18deg) translateX(0); }
 }
 
 @keyframes kickLeg {
   0% { transform: rotate(0deg); }
-  45% { transform: rotate(-65deg); }
+  45% { transform: rotate(-70deg); }
   100% { transform: rotate(0deg); }
 }
 
@@ -416,8 +528,8 @@ body {
 .keeper {
   position: absolute;
   left: 50%;
-  bottom: 10px;
-  width: 80px;
+  bottom: 18px;
+  width: 75px;
   height: 120px;
   z-index: 7;
   transition: 0.55s ease;
@@ -436,6 +548,23 @@ body {
   height: 58px;
   border-radius: 12px;
   margin: -2px auto;
+}
+
+.keeper-leg {
+  width: 16px;
+  height: 36px;
+  background: #111;
+  position: absolute;
+  bottom: 0;
+  border-radius: 8px;
+}
+
+.keeper-leg-left {
+  left: 22px;
+}
+
+.keeper-leg-right {
+  right: 22px;
 }
 
 .keeper-glove {
@@ -467,27 +596,27 @@ body {
 /* KEEPER ANIMATIONS */
 
 .save-top-left {
-  transform: translate(-270px, -125px) rotate(-35deg);
+  transform: translate(-205px, -95px) rotate(-35deg);
 }
 
 .save-top-center {
-  transform: translate(-50%, -140px) scale(1.1);
+  transform: translate(-50%, -105px) scale(1.1);
 }
 
 .save-top-right {
-  transform: translate(200px, -125px) rotate(35deg);
+  transform: translate(145px, -95px) rotate(35deg);
 }
 
 .save-low-left {
-  transform: translate(-270px, -10px) rotate(-25deg);
+  transform: translate(-205px, -5px) rotate(-25deg);
 }
 
 .save-low-center {
-  transform: translate(-50%, -5px) scale(1.1);
+  transform: translate(-50%, 0) scale(1.1);
 }
 
 .save-low-right {
-  transform: translate(200px, -10px) rotate(25deg);
+  transform: translate(145px, -5px) rotate(25deg);
 }
 
 /* BALL */
@@ -495,18 +624,19 @@ body {
 .penalty-spot {
   position: absolute;
   left: 50%;
-  bottom: 132px;
-  width: 16px;
-  height: 16px;
-  background: white;
+  bottom: 120px;
+  width: 15px;
+  height: 15px;
+  background: rgba(0,0,0,0.35);
   border-radius: 50%;
   transform: translateX(-50%);
+  z-index: 6;
 }
 
 .ball {
   position: absolute;
   left: 50%;
-  bottom: 128px;
+  bottom: 123px;
   transform: translateX(-50%);
   font-size: 34px;
   z-index: 9;
@@ -515,38 +645,38 @@ body {
 
 .ball-top-left,
 .contact-top-left {
-  left: 23%;
-  bottom: 425px;
+  left: 30%;
+  bottom: 395px;
 }
 
 .ball-top-center,
 .contact-top-center {
   left: 50%;
-  bottom: 425px;
+  bottom: 395px;
 }
 
 .ball-top-right,
 .contact-top-right {
-  left: 77%;
-  bottom: 425px;
+  left: 70%;
+  bottom: 395px;
 }
 
 .ball-low-left,
 .contact-low-left {
-  left: 23%;
-  bottom: 280px;
+  left: 30%;
+  bottom: 300px;
 }
 
 .ball-low-center,
 .contact-low-center {
   left: 50%;
-  bottom: 280px;
+  bottom: 300px;
 }
 
 .ball-low-right,
 .contact-low-right {
-  left: 77%;
-  bottom: 280px;
+  left: 70%;
+  bottom: 300px;
 }
 
 /* POPUPS */
@@ -713,7 +843,7 @@ body {
   }
 }
 
-/* THEMES */
+/* BODY THEMES */
 
 .theme-field {
   background: linear-gradient(135deg, #0b3d1f, #123f2b);
@@ -741,7 +871,7 @@ body {
   }
 
   .goal {
-    width: 90%;
+    width: 82%;
   }
 
   .final-card {
@@ -777,17 +907,28 @@ body {
   }
 
   .goal {
-    width: 95%;
-    height: 260px;
+    width: 92%;
+    height: 220px;
   }
 
   .player {
-    left: calc(50% - 85px);
-    transform: scale(0.8);
+    left: calc(50% - 95px);
+    bottom: 35px;
+    transform: scale(0.82) rotate(-18deg);
   }
 
   .keeper {
-    transform: scale(0.8);
+    transform: scale(0.85);
+  }
+
+  .ball {
+    left: 50%;
+    bottom: 113px;
+  }
+
+  .penalty-spot {
+    left: 50%;
+    bottom: 110px;
   }
 
   .shot-popup {
@@ -796,5 +937,16 @@ body {
 
   .final-center h1 {
     font-size: 52px;
+  }
+
+  .top-decoration {
+    font-size: 18px;
+    padding: 8px 25px;
+  }
+
+  .side-decoration::before,
+  .side-decoration::after {
+    font-size: 15px;
+    width: 30%;
   }
 }

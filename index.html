@@ -6,6 +6,7 @@
   <title>Penalty Tours</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body class="theme-field">
   <nav class="navbar">
     <div class="nav-logo">⚽ Penalty Tours</div>
@@ -26,7 +27,7 @@
       <div class="stadium-grid">
         <button class="stadium-card field-card" onclick="chooseStadium('Field')">
           <h2>Field</h2>
-          <p>Classic green football pitch.</p>
+          <p>Classic football pitch.</p>
         </button>
 
         <button class="stadium-card indoor-card" onclick="chooseStadium('Indoor Court')">
@@ -87,6 +88,7 @@
           <h3>Red Team</h3>
           <div id="userCircles" class="circle-row"></div>
         </div>
+
         <div>
           <h3>Blue Team</h3>
           <div id="computerCircles" class="circle-row"></div>
@@ -94,8 +96,11 @@
       </div>
 
       <div id="matchArea" class="match-area field-ground">
-        <div class="stadium-decoration top-decoration"></div>
-        <div class="stadium-decoration side-decoration"></div>
+        <div class="top-decoration">
+          <span id="miniScore">RED 0 : 0 BLUE</span>
+        </div>
+
+        <div class="side-decoration"></div>
 
         <div id="resultPopup" class="shot-popup">GOAL!</div>
 
@@ -103,16 +108,18 @@
           <div id="keeper" class="keeper blue-keeper">
             <div class="keeper-head"></div>
             <div class="keeper-body"></div>
+            <div class="keeper-leg keeper-leg-left"></div>
+            <div class="keeper-leg keeper-leg-right"></div>
             <div class="keeper-glove left-glove"></div>
             <div class="keeper-glove right-glove"></div>
           </div>
 
-          <button data-zone="top-left"></button>
-          <button data-zone="top-center"></button>
-          <button data-zone="top-right"></button>
-          <button data-zone="low-left"></button>
-          <button data-zone="low-center"></button>
-          <button data-zone="low-right"></button>
+          <button data-zone="top-left" aria-label="Top left"></button>
+          <button data-zone="top-center" aria-label="Top center"></button>
+          <button data-zone="top-right" aria-label="Top right"></button>
+          <button data-zone="low-left" aria-label="Low left"></button>
+          <button data-zone="low-center" aria-label="Low center"></button>
+          <button data-zone="low-right" aria-label="Low right"></button>
         </div>
 
         <div class="penalty-spot"></div>
@@ -193,7 +200,6 @@
     let userIsShooting = true;
     let locked = false;
     let suddenDeath = false;
-    let selectedStadium = "Field";
 
     let userResults = [];
     let computerResults = [];
@@ -207,6 +213,7 @@
     const roundDisplay = document.getElementById("roundDisplay");
     const userScoreText = document.getElementById("userScoreText");
     const computerScoreText = document.getElementById("computerScoreText");
+    const miniScore = document.getElementById("miniScore");
     const roleText = document.getElementById("roleText");
     const instructionText = document.getElementById("instructionText");
     const stadiumName = document.getElementById("stadiumName");
@@ -220,7 +227,9 @@
 
     document.querySelectorAll(".goal button").forEach(button => {
       button.addEventListener("click", () => {
-        if (!locked) playTurn(button.dataset.zone);
+        if (!locked) {
+          playTurn(button.dataset.zone);
+        }
       });
     });
 
@@ -243,7 +252,6 @@
     }
 
     function chooseStadium(name) {
-      selectedStadium = name;
       stadiumName.textContent = name;
 
       document.body.className = "";
@@ -299,9 +307,9 @@
             computerSaves++;
             userResults.push("save");
             suddenUserGoal = false;
+            moveBallToKeeper(computerChoice);
             showShotPopup("SAVE!");
             playBoo();
-            moveBallToKeeper(computerChoice);
           }
 
           updateScore();
@@ -315,7 +323,6 @@
             locked = false;
           }, 1500);
         }, 850);
-
       } else {
         animateShot(computerChoice, userChoice, "computer");
 
@@ -326,9 +333,9 @@
             userSaves++;
             computerResults.push("save");
             suddenComputerGoal = false;
+            moveBallToKeeper(userChoice);
             showShotPopup("SAVE!");
             playCheer();
-            moveBallToKeeper(userChoice);
           } else {
             computerScore++;
             computerResults.push("goal");
@@ -419,6 +426,7 @@
     function updateScore() {
       userScoreText.textContent = userScore;
       computerScoreText.textContent = computerScore;
+      miniScore.textContent = `RED ${userScore} : ${computerScore} BLUE`;
     }
 
     function updateRoundText() {
@@ -434,14 +442,19 @@
       const container = document.getElementById(id);
       container.innerHTML = "";
 
-      const total = suddenDeath ? results.length + 1 : 5;
+      const total = suddenDeath ? Math.max(5, results.length + 1) : 5;
 
       for (let i = 0; i < total; i++) {
         const circle = document.createElement("span");
         circle.classList.add("score-circle");
 
-        if (results[i] === "goal") circle.classList.add("goal-circle");
-        if (results[i] === "save") circle.classList.add("save-circle");
+        if (results[i] === "goal") {
+          circle.classList.add("goal-circle");
+        }
+
+        if (results[i] === "save") {
+          circle.classList.add("save-circle");
+        }
 
         container.appendChild(circle);
       }
@@ -485,6 +498,7 @@
       roundDisplay.textContent = "1 / 5";
       userScoreText.textContent = "0";
       computerScoreText.textContent = "0";
+      miniScore.textContent = "RED 0 : 0 BLUE";
       roleText.textContent = "Shooter";
       instructionText.textContent = "Click a zone to shoot.";
 
@@ -492,7 +506,9 @@
       resetBall();
       confettiBox.innerHTML = "";
 
-      if (closeModal) finalModal.classList.add("hidden");
+      if (closeModal) {
+        finalModal.classList.add("hidden");
+      }
     }
 
     function playTone(frequency, duration, type = "sine") {
