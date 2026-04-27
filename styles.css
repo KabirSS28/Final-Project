@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-/* GENERAL */
-
 body {
   font-family: Arial, sans-serif;
   min-height: 100vh;
@@ -67,11 +65,33 @@ body {
 
 .home-view {
   text-align: center;
+  background:
+    radial-gradient(circle at top left, rgba(156, 255, 50, 0.25), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(47, 128, 237, 0.22), transparent 35%),
+    linear-gradient(135deg, #07111f, #0c2e1a 55%, #10233c);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-view::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.08) 50%, transparent 51%),
+    radial-gradient(circle at 50% 65%, transparent 0 120px, rgba(255,255,255,0.08) 121px 124px, transparent 125px);
+  pointer-events: none;
+}
+
+.home-overlay {
+  position: relative;
+  z-index: 2;
 }
 
 .home-view h1 {
-  font-size: 64px;
+  font-size: 68px;
   margin-bottom: 12px;
+  letter-spacing: 2px;
 }
 
 .subtitle {
@@ -136,10 +156,11 @@ body {
 .rules-card {
   max-width: 720px;
   margin: 0 auto;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.62);
   padding: 24px;
   border-radius: 22px;
   text-align: center;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
 }
 
 .rules-card h2 {
@@ -232,8 +253,6 @@ body {
   border: 4px solid rgba(255, 255, 255, 0.28);
 }
 
-/* FIELD MARKINGS */
-
 .match-area::after {
   content: "";
   position: absolute;
@@ -325,7 +344,7 @@ body {
   right: 0;
 }
 
-/* GOAL WITH DEPTH */
+/* GOAL */
 
 .goal {
   position: absolute;
@@ -465,13 +484,13 @@ body {
   100% { transform: rotate(0deg); }
 }
 
-/* GOALKEEPER - CLEAN GRAPHIC */
+/* GOALKEEPER */
 
 .keeper {
   position: absolute;
   left: 50%;
   bottom: 18px;
-  width: 90px;
+  width: 88px;
   height: 145px;
   z-index: 7;
   transform: translateX(-50%);
@@ -512,30 +531,13 @@ body {
 }
 
 .keeper::before {
-  left: 18px;
+  left: 19px;
   transform: rotate(135deg);
 }
 
 .keeper::after {
-  right: 18px;
+  right: 19px;
   transform: rotate(-135deg);
-}
-
-.keeper-glove {
-  position: absolute;
-  top: 13px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  z-index: 3;
-}
-
-.left-glove {
-  left: 3px;
-}
-
-.right-glove {
-  right: 3px;
 }
 
 .keeper-leg {
@@ -549,22 +551,20 @@ body {
 }
 
 .keeper-leg-left {
-  left: 29px;
+  left: 28px;
 }
 
 .keeper-leg-right {
-  right: 29px;
+  right: 28px;
 }
 
 .red-keeper .keeper-body,
-.red-keeper .keeper-glove,
 .red-keeper::before,
 .red-keeper::after {
   background: #e63946;
 }
 
 .blue-keeper .keeper-body,
-.blue-keeper .keeper-glove,
 .blue-keeper::before,
 .blue-keeper::after {
   background: #2f80ed;
@@ -893,11 +893,15 @@ body {
   }
 
   .view {
-    padding: 20px;
+    padding: 16px;
   }
 
   .home-view h1 {
     font-size: 42px;
+  }
+
+  .subtitle {
+    font-size: 17px;
   }
 
   .stadium-grid,
@@ -907,61 +911,114 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .stadium-card {
+    min-height: 145px;
+  }
+
+  .game-header div,
+  .penalty-scoreboard {
+    padding: 10px;
+  }
+
+  .game-header h2 {
+    font-size: 22px;
+  }
+
   .match-area {
-    height: 560px;
+    height: 520px;
+    border-radius: 18px;
   }
 
   .goal {
+    top: 95px;
     width: 92%;
-    height: 220px;
+    height: 210px;
   }
 
   .player {
-    left: calc(50% - 95px);
-    bottom: 35px;
-    transform: scale(0.82) rotate(-18deg);
+    left: calc(50% - 92px);
+    bottom: 24px;
+    transform: scale(0.78) rotate(-18deg);
   }
 
   .keeper {
-    transform: translateX(-50%) scale(0.85);
+    transform: translateX(-50%) scale(0.78);
   }
 
   .save-top-left {
-    transform: translate(calc(-50% - 120px), -70px) rotate(-25deg) scale(0.85);
+    transform: translate(calc(-50% - 118px), -70px) rotate(-25deg) scale(0.78);
   }
 
   .save-top-center {
-    transform: translate(-50%, -80px) scale(0.9);
+    transform: translate(-50%, -80px) scale(0.84);
   }
 
   .save-top-right {
-    transform: translate(calc(-50% + 120px), -70px) rotate(25deg) scale(0.85);
+    transform: translate(calc(-50% + 118px), -70px) rotate(25deg) scale(0.78);
   }
 
   .save-low-left {
-    transform: translate(calc(-50% - 120px), -5px) rotate(-18deg) scale(0.85);
+    transform: translate(calc(-50% - 118px), -5px) rotate(-18deg) scale(0.78);
   }
 
   .save-low-center {
-    transform: translate(-50%, 0) scale(0.9);
+    transform: translate(-50%, 0) scale(0.84);
   }
 
   .save-low-right {
-    transform: translate(calc(-50% + 120px), -5px) rotate(18deg) scale(0.85);
+    transform: translate(calc(-50% + 118px), -5px) rotate(18deg) scale(0.78);
   }
 
   .ball {
     left: 50%;
-    bottom: 113px;
+    bottom: 103px;
+    font-size: 30px;
   }
 
   .penalty-spot {
     left: 50%;
-    bottom: 110px;
+    bottom: 100px;
+  }
+
+  .ball-top-left,
+  .contact-top-left {
+    left: 24%;
+    bottom: 350px;
+  }
+
+  .ball-top-center,
+  .contact-top-center {
+    left: 50%;
+    bottom: 350px;
+  }
+
+  .ball-top-right,
+  .contact-top-right {
+    left: 76%;
+    bottom: 350px;
+  }
+
+  .ball-low-left,
+  .contact-low-left {
+    left: 24%;
+    bottom: 275px;
+  }
+
+  .ball-low-center,
+  .contact-low-center {
+    left: 50%;
+    bottom: 275px;
+  }
+
+  .ball-low-right,
+  .contact-low-right {
+    left: 76%;
+    bottom: 275px;
   }
 
   .shot-popup {
-    font-size: 34px;
+    font-size: 32px;
+    padding: 18px 26px;
   }
 
   .final-center h1 {
@@ -969,14 +1026,25 @@ body {
   }
 
   .top-decoration {
-    font-size: 18px;
-    padding: 8px 25px;
+    font-size: 15px;
+    padding: 8px 18px;
+    letter-spacing: 2px;
   }
 
   .side-decoration::before,
   .side-decoration::after {
-    font-size: 15px;
-    width: 30%;
+    font-size: 12px;
+    width: 31%;
+    height: 42px;
+    line-height: 42px;
+    top: 165px;
+  }
+
+  .instruction {
+    font-size: 17px;
+  }
+
+  .game-buttons {
+    flex-direction: column;
   }
 }
-

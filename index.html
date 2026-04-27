@@ -17,49 +17,48 @@
   </nav>
 
   <main class="app">
-    <!-- HOME -->
     <section id="homeView" class="view active home-view">
-      <h1>Penalty Tours</h1>
-      <p class="subtitle">Choose a stadium and win the penalty shootout.</p>
+      <div class="home-overlay">
+        <h1>Penalty Tours</h1>
+        <p class="subtitle">Choose a stadium and win the penalty shootout.</p>
 
-      <h2 class="choose-text">Choose Your Stadium</h2>
+        <h2 class="choose-text">Choose Your Stadium</h2>
 
-      <div class="stadium-grid">
-        <button class="stadium-card field-card" onclick="chooseStadium('Field')">
-          <h2>Field</h2>
-          <p>Classic football pitch.</p>
-        </button>
+        <div class="stadium-grid">
+          <button class="stadium-card field-card" onclick="chooseStadium('Field')">
+            <h2>Field</h2>
+            <p>Classic football pitch.</p>
+          </button>
 
-        <button class="stadium-card indoor-card" onclick="chooseStadium('Indoor Court')">
-          <h2>Indoor Court</h2>
-          <p>Fast indoor football surface.</p>
-        </button>
+          <button class="stadium-card indoor-card" onclick="chooseStadium('Indoor Court')">
+            <h2>Indoor Court</h2>
+            <p>Fast indoor football surface.</p>
+          </button>
 
-        <button class="stadium-card street-card" onclick="chooseStadium('Street Football')">
-          <h2>Street Football</h2>
-          <p>Concrete street football ground.</p>
-        </button>
+          <button class="stadium-card street-card" onclick="chooseStadium('Street Football')">
+            <h2>Street Football</h2>
+            <p>Concrete street football ground.</p>
+          </button>
 
-        <button class="stadium-card beach-card" onclick="chooseStadium('Beach')">
-          <h2>Beach</h2>
-          <p>Penalty shootout on sand.</p>
-        </button>
-      </div>
+          <button class="stadium-card beach-card" onclick="chooseStadium('Beach')">
+            <h2>Beach</h2>
+            <p>Penalty shootout on sand.</p>
+          </button>
+        </div>
 
-      <div class="rules-card">
-        <h2>Rules</h2>
-        <ul>
-          <li>Choose a stadium and play a penalty shootout.</li>
-          <li>You are the red team. The computer is the blue team.</li>
-          <li>You play as both shooter and goalkeeper.</li>
-          <li>Click one of the 6 goal zones to shoot or save.</li>
-          <li>Green circles mean goals. Red circles mean saved.</li>
-          <li>If tied after 5 rounds, the match goes to sudden death.</li>
-        </ul>
+        <div class="rules-card">
+          <h2>Rules</h2>
+          <ul>
+            <li>You are the red team. The computer is the blue team.</li>
+            <li>You play as both shooter and goalkeeper.</li>
+            <li>Click one of the 6 goal zones to shoot or save.</li>
+            <li>Green circles mean goals. Red circles mean saved.</li>
+            <li>If tied after 5 rounds, the match goes to sudden death.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- GAME -->
     <section id="gameView" class="view">
       <div class="game-header">
         <div>
@@ -78,7 +77,7 @@
         </div>
 
         <div>
-          <p>Current Role</p>
+          <p>Role</p>
           <h2 id="roleText">Shooter</h2>
         </div>
       </div>
@@ -110,8 +109,6 @@
             <div class="keeper-body"></div>
             <div class="keeper-leg keeper-leg-left"></div>
             <div class="keeper-leg keeper-leg-right"></div>
-            <div class="keeper-glove left-glove"></div>
-            <div class="keeper-glove right-glove"></div>
           </div>
 
           <button data-zone="top-left" aria-label="Top left"></button>
@@ -141,7 +138,6 @@
       </div>
     </section>
 
-    <!-- FINAL POPUP -->
     <div id="finalModal" class="final-modal hidden">
       <div id="confettiBox"></div>
 
@@ -183,14 +179,7 @@
   </main>
 
   <script>
-    const zones = [
-      "top-left",
-      "top-center",
-      "top-right",
-      "low-left",
-      "low-center",
-      "low-right"
-    ];
+    const zones = ["top-left", "top-center", "top-right", "low-left", "low-center", "low-right"];
 
     let round = 1;
     let userScore = 0;
@@ -227,21 +216,15 @@
 
     document.querySelectorAll(".goal button").forEach(button => {
       button.addEventListener("click", () => {
-        if (!locked) {
-          playTurn(button.dataset.zone);
-        }
+        if (!locked) playTurn(button.dataset.zone);
       });
     });
 
     function showView(viewName) {
       homeView.classList.remove("active");
       gameView.classList.remove("active");
-
-      if (viewName === "home") {
-        homeView.classList.add("active");
-      } else {
-        gameView.classList.add("active");
-      }
+      if (viewName === "home") homeView.classList.add("active");
+      else gameView.classList.add("active");
     }
 
     function goHome() {
@@ -253,7 +236,6 @@
 
     function chooseStadium(name) {
       stadiumName.textContent = name;
-
       document.body.className = "";
       matchArea.className = "match-area";
 
@@ -448,13 +430,8 @@
         const circle = document.createElement("span");
         circle.classList.add("score-circle");
 
-        if (results[i] === "goal") {
-          circle.classList.add("goal-circle");
-        }
-
-        if (results[i] === "save") {
-          circle.classList.add("save-circle");
-        }
+        if (results[i] === "goal") circle.classList.add("goal-circle");
+        if (results[i] === "save") circle.classList.add("save-circle");
 
         container.appendChild(circle);
       }
@@ -506,9 +483,7 @@
       resetBall();
       confettiBox.innerHTML = "";
 
-      if (closeModal) {
-        finalModal.classList.add("hidden");
-      }
+      if (closeModal) finalModal.classList.add("hidden");
     }
 
     function playTone(frequency, duration, type = "sine") {
