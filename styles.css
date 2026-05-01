@@ -344,7 +344,7 @@ body {
   right: 0;
 }
 
-/* GOAL */
+/* GOAL - UPDATED DEPTH + NET */
 
 .goal {
   position: absolute;
@@ -356,47 +356,47 @@ body {
   border: 10px solid var(--goal-color);
   border-bottom-width: 7px;
   background:
-    linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.42) 46%, rgba(255, 255, 255, 0.42) 48%, transparent 49%),
-    linear-gradient(-45deg, transparent 45%, rgba(255, 255, 255, 0.42) 46%, rgba(255, 255, 255, 0.42) 48%, transparent 49%),
-    rgba(20, 55, 75, 0.15);
-  background-size: 26px 26px;
+    linear-gradient(90deg, rgba(255,255,255,0.38) 2px, transparent 2px),
+    linear-gradient(0deg, rgba(255,255,255,0.38) 2px, transparent 2px),
+    rgba(20, 55, 75, 0.12);
+  background-size: 32px 32px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   z-index: 5;
   box-shadow:
-    0 18px 30px rgba(0, 0, 0, 0.35),
-    18px 18px 0 rgba(0, 0, 0, 0.18);
+    16px 18px 0 rgba(0, 0, 0, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.35);
 }
 
 .goal::before {
   content: "";
   position: absolute;
   top: 18px;
-  left: 22px;
-  right: -28px;
-  bottom: -28px;
-  border: 6px solid rgba(255, 255, 255, 0.28);
+  left: 28px;
+  right: -38px;
+  bottom: -32px;
+  border: 7px solid rgba(255,255,255,0.28);
   background:
-    linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.22) 46%, rgba(255, 255, 255, 0.22) 48%, transparent 49%),
-    linear-gradient(-45deg, transparent 45%, rgba(255, 255, 255, 0.22) 46%, rgba(255, 255, 255, 0.22) 48%, transparent 49%);
-  background-size: 28px 28px;
+    linear-gradient(90deg, rgba(255,255,255,0.22) 2px, transparent 2px),
+    linear-gradient(0deg, rgba(255,255,255,0.22) 2px, transparent 2px);
+  background-size: 32px 32px;
+  transform: skewX(-9deg);
   z-index: -1;
   pointer-events: none;
-  transform: skewX(-8deg);
 }
 
 .goal::after {
   content: "";
   position: absolute;
   left: -35px;
-  right: -35px;
+  right: -42px;
   bottom: -18px;
-  height: 10px;
+  height: 11px;
   background: var(--goal-color);
   border-radius: 40px;
   pointer-events: none;
-  box-shadow: 0 7px 16px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 7px 16px rgba(0,0,0,0.35);
 }
 
 .goal button {
@@ -570,10 +570,10 @@ body {
   background: #2f80ed;
 }
 
-/* KEEPER SAVE ANIMATIONS - SLIGHTLY LOWER */
+/* KEEPER SAVE ANIMATIONS - UPDATED */
 
 .save-top-left {
-  transform: translate(calc(-50% - 190px), -70px) rotate(-25deg);
+  transform: translate(calc(-50% - 230px), -70px) rotate(-28deg);
 }
 
 .save-top-center {
@@ -581,19 +581,19 @@ body {
 }
 
 .save-top-right {
-  transform: translate(calc(-50% + 190px), -70px) rotate(25deg);
+  transform: translate(calc(-50% + 230px), -70px) rotate(28deg);
 }
 
 .save-low-left {
-  transform: translate(calc(-50% - 190px), 8px) rotate(-18deg);
+  transform: translate(calc(-50% - 205px), 20px) rotate(-78deg);
 }
 
 .save-low-center {
-  transform: translate(-50%, 12px) scale(1.05);
+  transform: translate(-50%, 28px) scale(1.05);
 }
 
 .save-low-right {
-  transform: translate(calc(-50% + 190px), 8px) rotate(18deg);
+  transform: translate(calc(-50% + 205px), 20px) rotate(78deg);
 }
 
 /* BALL */
@@ -655,7 +655,7 @@ body {
 /* SAVE CONTACT POINTS */
 
 .contact-top-left {
-  left: 32%;
+  left: 27%;
   bottom: 382px;
 }
 
@@ -665,12 +665,12 @@ body {
 }
 
 .contact-top-right {
-  left: 68%;
+  left: 73%;
   bottom: 382px;
 }
 
 .contact-low-left {
-  left: 32%;
+  left: 27%;
   bottom: 315px;
 }
 
@@ -680,7 +680,7 @@ body {
 }
 
 .contact-low-right {
-  left: 68%;
+  left: 73%;
   bottom: 315px;
 }
 
@@ -946,7 +946,7 @@ body {
   }
 
   .save-top-left {
-    transform: translate(calc(-50% - 118px), -55px) rotate(-25deg) scale(0.78);
+    transform: translate(calc(-50% - 140px), -55px) rotate(-28deg) scale(0.78);
   }
 
   .save-top-center {
@@ -954,19 +954,19 @@ body {
   }
 
   .save-top-right {
-    transform: translate(calc(-50% + 118px), -55px) rotate(25deg) scale(0.78);
+    transform: translate(calc(-50% + 140px), -55px) rotate(28deg) scale(0.78);
   }
 
   .save-low-left {
-    transform: translate(calc(-50% - 118px), 8px) rotate(-18deg) scale(0.78);
+    transform: translate(calc(-50% - 125px), 18px) rotate(-78deg) scale(0.78);
   }
 
   .save-low-center {
-    transform: translate(-50%, 12px) scale(0.84);
+    transform: translate(-50%, 28px) scale(0.84);
   }
 
   .save-low-right {
-    transform: translate(calc(-50% + 118px), 8px) rotate(18deg) scale(0.78);
+    transform: translate(calc(-50% + 125px), 18px) rotate(78deg) scale(0.78);
   }
 
   .ball {
