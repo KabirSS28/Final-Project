@@ -11,20 +11,22 @@ body {
   background: linear-gradient(135deg, #0b3d1f, #123f2b);
 }
 
+/* NAVBAR */
+
 .navbar {
-  height: 70px;
-  background: rgba(5, 10, 20, 0.95);
+  height: 64px;
+  background: rgba(5, 10, 20, 0.96);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
+  padding: 0 24px;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .nav-logo {
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 900;
 }
 
@@ -39,7 +41,7 @@ body {
   border: none;
   background: #9cff32;
   color: #071207;
-  padding: 10px 16px;
+  padding: 9px 14px;
   border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
@@ -51,10 +53,12 @@ body {
   transform: translateY(-2px);
 }
 
+/* VIEWS */
+
 .view {
   display: none;
-  min-height: calc(100vh - 70px);
-  padding: 35px;
+  min-height: calc(100vh - 64px);
+  padding: 28px;
 }
 
 .view.active {
@@ -89,31 +93,31 @@ body {
 }
 
 .home-view h1 {
-  font-size: 68px;
-  margin-bottom: 12px;
+  font-size: 66px;
+  margin-bottom: 10px;
   letter-spacing: 2px;
 }
 
 .subtitle {
-  font-size: 22px;
-  margin-bottom: 25px;
+  font-size: 21px;
+  margin-bottom: 22px;
 }
 
 .choose-text {
-  margin: 25px 0 18px;
+  margin: 22px 0 16px;
   font-size: 30px;
 }
 
 .stadium-grid {
   max-width: 1050px;
-  margin: 0 auto 30px;
+  margin: 0 auto 26px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .stadium-card {
-  min-height: 220px;
+  min-height: 190px;
   border: none;
   border-radius: 22px;
   padding: 24px;
@@ -157,7 +161,7 @@ body {
   max-width: 720px;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.62);
-  padding: 24px;
+  padding: 22px;
   border-radius: 22px;
   text-align: center;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
@@ -173,60 +177,55 @@ body {
 }
 
 .rules-card li {
-  margin: 10px 0;
-  font-size: 17px;
+  margin: 8px 0;
+  font-size: 16px;
 }
 
-/* GAME HEADER */
+/* GAME SCREEN */
 
 #gameView {
-  padding: 20px;
+  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
+  overflow: hidden;
+  padding: 8px 18px;
 }
+
+/* Hidden JS data */
 
 .game-header {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 14px;
+  display: none;
 }
 
-.game-header div,
-.penalty-scoreboard {
-  background: rgba(0, 0, 0, 0.68);
-  padding: 16px;
-  border-radius: 18px;
-  text-align: center;
-}
-
-.game-header p {
-  color: #dcdcdc;
-  text-transform: uppercase;
-  font-size: 13px;
-}
-
-.game-header h2 {
-  margin-top: 6px;
-  font-size: 26px;
-}
+/* CIRCLE SCOREBOARD */
 
 .penalty-scoreboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-bottom: 16px;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto 8px;
+  background: rgba(0, 0, 0, 0.68);
+  padding: 10px 14px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.penalty-scoreboard h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
 .circle-row {
   display: flex;
   justify-content: center;
-  gap: 9px;
-  margin-top: 8px;
+  gap: 8px;
+  margin-top: 6px;
   flex-wrap: wrap;
 }
 
 .score-circle {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border: 2px solid white;
   border-radius: 50%;
   display: inline-block;
@@ -247,10 +246,12 @@ body {
 
 .match-area {
   position: relative;
-  height: 610px;
-  border-radius: 25px;
+  height: 430px;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 20px;
   overflow: hidden;
-  border: 4px solid rgba(255, 255, 255, 0.28);
+  border: 4px solid rgba(255,255,255,0.28);
 }
 
 .match-area::after {
@@ -258,12 +259,12 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 375px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.9);
+  top: 282px;
+  height: 4px;
+  background: rgba(255,255,255,0.88);
   box-shadow:
-    0 -135px 0 rgba(255, 255, 255, 0.65),
-    0 145px 0 rgba(255, 255, 255, 0.3);
+    0 -112px 0 rgba(255,255,255,0.55),
+    0 105px 0 rgba(255,255,255,0.25);
   pointer-events: none;
   z-index: 2;
 }
@@ -273,47 +274,46 @@ body {
 .field-ground {
   --goal-color: white;
   background:
-    linear-gradient(to bottom, #7bc7e6 0 95px, #2177a6 95px 115px, transparent 115px),
-    repeating-linear-gradient(0deg, #43aa14 0 70px, #38a00f 70px 140px);
+    linear-gradient(to bottom, #7bc7e6 0 80px, #2177a6 80px 100px, transparent 100px),
+    repeating-linear-gradient(0deg, #43aa14 0 60px, #38a00f 60px 120px);
 }
 
 .indoor-ground {
   --goal-color: #e63946;
   background:
-    linear-gradient(to bottom, #182237 0 95px, #263752 95px 115px, transparent 115px),
-    repeating-linear-gradient(0deg, #30425d 0 70px, #28384f 70px 140px);
+    linear-gradient(to bottom, #182237 0 80px, #263752 80px 100px, transparent 100px),
+    repeating-linear-gradient(0deg, #30425d 0 60px, #28384f 60px 120px);
 }
 
 .street-ground {
   --goal-color: #050505;
   background:
-    linear-gradient(to bottom, #8fcce8 0 95px, #273747 95px 115px, transparent 115px),
-    repeating-linear-gradient(0deg, #4a4a4a 0 70px, #3d3d3d 70px 140px);
+    linear-gradient(to bottom, #8fcce8 0 80px, #273747 80px 100px, transparent 100px),
+    repeating-linear-gradient(0deg, #4a4a4a 0 60px, #3d3d3d 60px 120px);
 }
 
 .beach-ground {
   --goal-color: #ffd43b;
   background:
-    linear-gradient(to bottom, #7fd8ff 0 95px, #1590cc 95px 120px, #f3d48a 120px 140px, transparent 140px),
-    repeating-linear-gradient(0deg, #d9b765 0 70px, #caa653 70px 140px);
+    linear-gradient(to bottom, #7fd8ff 0 80px, #1590cc 80px 105px, #f3d48a 105px 125px, transparent 125px),
+    repeating-linear-gradient(0deg, #d9b765 0 60px, #caa653 60px 120px);
 }
 
-/* MINI SCOREBOARD */
+/* SCORE ABOVE GOAL */
 
 .top-decoration {
   position: absolute;
-  top: 16px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(31, 45, 70, 0.92);
+  background: rgba(31,45,70,0.92);
   color: white;
-  padding: 10px 55px;
+  padding: 8px 38px;
   border-radius: 6px;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 900;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   z-index: 8;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 /* AD BOARDS */
@@ -322,16 +322,16 @@ body {
 .side-decoration::after {
   content: "PENALTY TOURS";
   position: absolute;
-  top: 185px;
-  width: 30%;
-  height: 58px;
-  background: rgba(18, 39, 56, 0.95);
+  top: 150px;
+  width: 28%;
+  height: 42px;
+  background: rgba(18,39,56,0.95);
   color: #9cff32;
-  font-size: 28px;
+  font-size: 19px;
   font-weight: 900;
   text-align: center;
-  line-height: 58px;
-  letter-spacing: 2px;
+  line-height: 42px;
+  letter-spacing: 1px;
   z-index: 3;
   pointer-events: none;
 }
@@ -344,83 +344,101 @@ body {
   right: 0;
 }
 
-/* GOAL - UPDATED DEPTH + NET */
+/* GOAL - UPDATED FRAME WITH NO BOTTOM LINES */
 
 .goal {
   position: absolute;
-  top: 105px;
+  top: 78px;
   left: 50%;
   transform: translateX(-50%);
   width: 58%;
-  height: 245px;
-  border: 10px solid var(--goal-color);
-  border-bottom-width: 7px;
+  height: 205px;
+
+  border-top: 8px solid var(--goal-color);
+  border-left: 8px solid var(--goal-color);
+  border-right: 8px solid var(--goal-color);
+  border-bottom: none;
+
   background:
-    linear-gradient(90deg, rgba(255,255,255,0.38) 2px, transparent 2px),
-    linear-gradient(0deg, rgba(255,255,255,0.38) 2px, transparent 2px),
-    rgba(20, 55, 75, 0.12);
-  background-size: 32px 32px;
+    linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-color: rgba(255,255,255,0.08);
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   z-index: 5;
-  box-shadow:
-    16px 18px 0 rgba(0, 0, 0, 0.18),
-    0 18px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 14px 22px rgba(0,0,0,0.34);
 }
 
+/* inner rectangle: same color as goal post, no bottom line */
 .goal::before {
   content: "";
   position: absolute;
   top: 18px;
-  left: 28px;
-  right: -38px;
-  bottom: -32px;
-  border: 7px solid rgba(255,255,255,0.28);
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
+
+  border-top: 5px solid var(--goal-color);
+  border-left: 5px solid var(--goal-color);
+  border-right: 5px solid var(--goal-color);
+  border-bottom: none;
+
   background:
-    linear-gradient(90deg, rgba(255,255,255,0.22) 2px, transparent 2px),
-    linear-gradient(0deg, rgba(255,255,255,0.22) 2px, transparent 2px);
-  background-size: 32px 32px;
-  transform: skewX(-9deg);
-  z-index: -1;
+    linear-gradient(rgba(255,255,255,0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px);
+  background-size: 22px 22px;
+
   pointer-events: none;
+  z-index: -1;
 }
 
+/* connector lines from outer top corners to inner top corners */
 .goal::after {
   content: "";
   position: absolute;
-  left: -35px;
-  right: -42px;
-  bottom: -18px;
-  height: 11px;
-  background: var(--goal-color);
-  border-radius: 40px;
+  inset: 0;
   pointer-events: none;
-  box-shadow: 0 7px 16px rgba(0,0,0,0.35);
+  z-index: -1;
+
+  background:
+    linear-gradient(45deg,
+      transparent 0 46%,
+      var(--goal-color) 47% 54%,
+      transparent 55% 100%
+    ) left top / 25px 23px no-repeat,
+
+    linear-gradient(-45deg,
+      transparent 0 46%,
+      var(--goal-color) 47% 54%,
+      transparent 55% 100%
+    ) right top / 25px 23px no-repeat;
 }
 
 .goal button {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255,255,255,0.02);
   color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255,255,255,0.32);
   cursor: pointer;
   z-index: 6;
 }
 
 .goal button:hover {
-  background: rgba(156, 255, 50, 0.28);
+  background: rgba(156,255,50,0.25);
 }
 
 /* SHOOTER */
 
 .player {
   position: absolute;
-  left: calc(50% - 125px);
-  bottom: 45px;
+  left: calc(50% - 108px);
+  bottom: 10px;
   width: 95px;
   height: 175px;
   z-index: 8;
-  transform: rotate(-18deg);
+  transform: scale(0.78) rotate(-18deg);
 }
 
 .player-head {
@@ -473,9 +491,9 @@ body {
 }
 
 @keyframes bodyKick {
-  0% { transform: rotate(-18deg) translateX(0); }
-  45% { transform: rotate(-8deg) translateX(28px); }
-  100% { transform: rotate(-18deg) translateX(0); }
+  0% { transform: scale(0.78) rotate(-18deg) translateX(0); }
+  45% { transform: scale(0.78) rotate(-8deg) translateX(28px); }
+  100% { transform: scale(0.78) rotate(-18deg) translateX(0); }
 }
 
 @keyframes kickLeg {
@@ -489,11 +507,11 @@ body {
 .keeper {
   position: absolute;
   left: 50%;
-  bottom: 18px;
+  bottom: 5px;
   width: 88px;
   height: 145px;
   z-index: 7;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.86);
   transition: 0.55s ease;
 }
 
@@ -516,6 +534,7 @@ body {
   height: 58px;
   border-radius: 14px 14px 8px 8px;
   transform: translateX(-50%);
+  background: #2f80ed;
 }
 
 .keeper::before,
@@ -528,6 +547,7 @@ body {
   border-radius: 8px;
   transform-origin: top center;
   z-index: 2;
+  background: #2f80ed;
 }
 
 .keeper::before {
@@ -570,30 +590,30 @@ body {
   background: #2f80ed;
 }
 
-/* KEEPER SAVE ANIMATIONS - UPDATED */
+/* KEEPER SAVE ANIMATIONS - UPDATED FARTHER LEFT/RIGHT */
 
 .save-top-left {
-  transform: translate(calc(-50% - 230px), -70px) rotate(-28deg);
+  transform: translate(calc(-50% - 145px), -38px) rotate(-18deg) scale(0.86);
 }
 
 .save-top-center {
-  transform: translate(-50%, -80px) scale(1.05);
+  transform: translate(-50%, -48px) scale(0.9);
 }
 
 .save-top-right {
-  transform: translate(calc(-50% + 230px), -70px) rotate(28deg);
+  transform: translate(calc(-50% + 145px), -38px) rotate(18deg) scale(0.86);
 }
 
 .save-low-left {
-  transform: translate(calc(-50% - 205px), 20px) rotate(-78deg);
+  transform: translate(calc(-50% - 132px), 32px) rotate(-50deg) scale(0.86);
 }
 
 .save-low-center {
-  transform: translate(-50%, 28px) scale(1.05);
+  transform: translate(-50%, 38px) scale(0.9);
 }
 
 .save-low-right {
-  transform: translate(calc(-50% + 205px), 20px) rotate(78deg);
+  transform: translate(calc(-50% + 132px), 32px) rotate(50deg) scale(0.86);
 }
 
 /* BALL */
@@ -601,10 +621,10 @@ body {
 .penalty-spot {
   position: absolute;
   left: 50%;
-  bottom: 120px;
-  width: 15px;
-  height: 15px;
-  background: rgba(0, 0, 0, 0.35);
+  bottom: 70px;
+  width: 13px;
+  height: 13px;
+  background: rgba(0,0,0,0.35);
   border-radius: 50%;
   transform: translateX(-50%);
   z-index: 6;
@@ -613,89 +633,91 @@ body {
 .ball {
   position: absolute;
   left: 50%;
-  bottom: 123px;
+  bottom: 74px;
   transform: translateX(-50%);
-  font-size: 34px;
+  font-size: 31px;
   z-index: 9;
   transition: 0.65s ease-in-out;
 }
 
-/* SHOT TARGETS */
+/* BALL TARGETS */
 
 .ball-top-left {
-  left: 30%;
-  bottom: 395px;
+  left: 31%;
+  bottom: 285px;
 }
 
 .ball-top-center {
   left: 50%;
-  bottom: 395px;
+  bottom: 285px;
 }
 
 .ball-top-right {
-  left: 70%;
-  bottom: 395px;
+  left: 69%;
+  bottom: 285px;
 }
 
 .ball-low-left {
-  left: 30%;
-  bottom: 300px;
+  left: 31%;
+  bottom: 202px;
 }
 
+/* bottom middle lowered slightly */
 .ball-low-center {
   left: 50%;
-  bottom: 300px;
+  bottom: 190px;
 }
 
 .ball-low-right {
-  left: 70%;
-  bottom: 300px;
+  left: 69%;
+  bottom: 202px;
 }
 
 /* SAVE CONTACT POINTS */
 
 .contact-top-left {
-  left: 27%;
-  bottom: 382px;
+  left: 31%;
+  bottom: 285px;
 }
 
 .contact-top-center {
   left: 50%;
-  bottom: 385px;
+  bottom: 285px;
 }
 
 .contact-top-right {
-  left: 73%;
-  bottom: 382px;
+  left: 69%;
+  bottom: 285px;
 }
 
 .contact-low-left {
-  left: 27%;
-  bottom: 315px;
+  left: 31%;
+  bottom: 202px;
 }
 
+/* bottom middle contact lowered slightly */
 .contact-low-center {
   left: 50%;
-  bottom: 315px;
+  bottom: 190px;
 }
 
 .contact-low-right {
-  left: 73%;
-  bottom: 315px;
+  left: 69%;
+  bottom: 202px;
 }
 
 /* POPUPS */
 
 .shot-popup {
   position: absolute;
-  top: 45%;
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.6);
-  background: rgba(0, 0, 0, 0.86);
+  background: rgba(0,0,0,0.86);
   color: #9cff32;
-  padding: 25px 45px;
+  padding: 22px 38px;
   border-radius: 20px;
-  font-size: 52px;
+  font-size: 46px;
   font-weight: 900;
   z-index: 30;
   opacity: 0;
@@ -709,28 +731,50 @@ body {
 }
 
 .instruction {
-  margin-top: 16px;
+  margin-top: 6px;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: bold;
 }
 
+/* BUTTONS + ROLE */
+
 .game-buttons {
-  margin-top: 15px;
+  margin-top: 6px;
   display: flex;
   justify-content: center;
-  gap: 14px;
+  align-items: center;
+  gap: 10px;
 }
 
-/* SUDDEN DEATH */
+.role-pill {
+  background: #2f80ed;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  min-width: 130px;
+  text-align: center;
+}
+
+/* SUDDEN DEATH DARK MODE */
 
 .sudden-dark {
   background: #050505 !important;
 }
 
 .sudden-dark .match-area {
-  filter: brightness(0.75);
-  box-shadow: 0 0 35px rgba(255, 0, 0, 0.45);
+  filter: brightness(0.72);
+  box-shadow: 0 0 35px rgba(255,0,0,0.48);
+}
+
+.sudden-dark .top-decoration {
+  background: rgba(80, 0, 0, 0.9);
+  color: #ffdddd;
+}
+
+.sudden-dark .role-pill {
+  background: #7c1111;
 }
 
 /* FINAL MODAL */
@@ -738,7 +782,7 @@ body {
 .final-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.84);
+  background: rgba(0,0,0,0.84);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -866,185 +910,187 @@ body {
   background: linear-gradient(135deg, #caa24d, #247f9c);
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-  .stadium-grid,
-  .game-header,
-  .penalty-scoreboard {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .goal {
-    width: 82%;
-  }
-
-  .final-card {
-    grid-template-columns: 1fr;
-  }
-}
+/* MOBILE */
 
 @media (max-width: 600px) {
   .navbar {
     height: auto;
+    padding: 10px;
     flex-direction: column;
-    gap: 12px;
-    padding: 14px;
+    gap: 8px;
+  }
+
+  .nav-logo {
+    font-size: 19px;
   }
 
   .view {
-    padding: 16px;
+    min-height: calc(100vh - 86px);
+    padding: 12px;
+  }
+
+  #gameView {
+    height: calc(100vh - 86px);
+    min-height: calc(100vh - 86px);
+    padding: 6px;
   }
 
   .home-view h1 {
-    font-size: 42px;
+    font-size: 40px;
   }
 
   .subtitle {
-    font-size: 17px;
+    font-size: 16px;
   }
 
-  .stadium-grid,
-  .game-header,
-  .penalty-scoreboard,
-  .stats {
+  .stadium-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .stadium-card {
-    min-height: 145px;
+    min-height: 120px;
   }
 
-  .game-header div,
+  .rules-card {
+    padding: 16px;
+  }
+
   .penalty-scoreboard {
-    padding: 10px;
+    padding: 7px;
+    margin-bottom: 5px;
   }
 
-  .game-header h2 {
-    font-size: 22px;
+  .score-circle {
+    width: 14px;
+    height: 14px;
   }
 
   .match-area {
-    height: 520px;
-    border-radius: 18px;
+    height: 360px;
+    border-radius: 16px;
   }
 
   .goal {
-    top: 95px;
-    width: 92%;
-    height: 210px;
+    top: 70px;
+    width: 90%;
+    height: 170px;
+  }
+
+  .top-decoration {
+    font-size: 13px;
+    padding: 6px 14px;
+    letter-spacing: 1px;
+  }
+
+  .side-decoration::before,
+  .side-decoration::after {
+    top: 134px;
+    width: 30%;
+    height: 32px;
+    line-height: 32px;
+    font-size: 10px;
   }
 
   .player {
-    left: calc(50% - 92px);
-    bottom: 24px;
-    transform: scale(0.78) rotate(-18deg);
+    left: calc(50% - 88px);
+    bottom: -12px;
+    transform: scale(0.58) rotate(-18deg);
   }
 
   .keeper {
-    transform: translateX(-50%) scale(0.78);
+    bottom: 0;
+    transform: translateX(-50%) scale(0.62);
   }
 
   .save-top-left {
-    transform: translate(calc(-50% - 140px), -55px) rotate(-28deg) scale(0.78);
+    transform: translate(calc(-50% - 105px), -30px) rotate(-18deg) scale(0.62);
   }
 
   .save-top-center {
-    transform: translate(-50%, -65px) scale(0.84);
+    transform: translate(-50%, -38px) scale(0.66);
   }
 
   .save-top-right {
-    transform: translate(calc(-50% + 140px), -55px) rotate(28deg) scale(0.78);
+    transform: translate(calc(-50% + 105px), -30px) rotate(18deg) scale(0.62);
   }
 
   .save-low-left {
-    transform: translate(calc(-50% - 125px), 18px) rotate(-78deg) scale(0.78);
+    transform: translate(calc(-50% - 95px), 25px) rotate(-48deg) scale(0.62);
   }
 
   .save-low-center {
-    transform: translate(-50%, 28px) scale(0.84);
+    transform: translate(-50%, 30px) scale(0.66);
   }
 
   .save-low-right {
-    transform: translate(calc(-50% + 125px), 18px) rotate(78deg) scale(0.78);
-  }
-
-  .ball {
-    left: 50%;
-    bottom: 103px;
-    font-size: 30px;
+    transform: translate(calc(-50% + 95px), 25px) rotate(48deg) scale(0.62);
   }
 
   .penalty-spot {
-    left: 50%;
-    bottom: 100px;
+    bottom: 55px;
+  }
+
+  .ball {
+    bottom: 58px;
+    font-size: 27px;
   }
 
   .ball-top-left,
   .contact-top-left {
-    left: 24%;
-    bottom: 350px;
+    left: 28%;
+    bottom: 250px;
   }
 
   .ball-top-center,
   .contact-top-center {
     left: 50%;
-    bottom: 350px;
+    bottom: 250px;
   }
 
   .ball-top-right,
   .contact-top-right {
-    left: 76%;
-    bottom: 350px;
+    left: 72%;
+    bottom: 250px;
   }
 
   .ball-low-left,
   .contact-low-left {
-    left: 24%;
-    bottom: 275px;
+    left: 28%;
+    bottom: 178px;
   }
 
   .ball-low-center,
   .contact-low-center {
     left: 50%;
-    bottom: 275px;
+    bottom: 166px;
   }
 
   .ball-low-right,
   .contact-low-right {
-    left: 76%;
-    bottom: 275px;
+    left: 72%;
+    bottom: 178px;
   }
 
   .shot-popup {
-    font-size: 32px;
-    padding: 18px 26px;
-  }
-
-  .final-center h1 {
-    font-size: 52px;
-  }
-
-  .top-decoration {
-    font-size: 15px;
-    padding: 8px 18px;
-    letter-spacing: 2px;
-  }
-
-  .side-decoration::before,
-  .side-decoration::after {
-    font-size: 12px;
-    width: 31%;
-    height: 42px;
-    line-height: 42px;
-    top: 165px;
+    font-size: 30px;
+    padding: 16px 24px;
   }
 
   .instruction {
-    font-size: 17px;
+    font-size: 14px;
+    margin-top: 4px;
   }
 
   .game-buttons {
-    flex-direction: column;
+    margin-top: 4px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .game-buttons button,
+  .role-pill {
+    padding: 7px 9px;
+    font-size: 12px;
   }
 }

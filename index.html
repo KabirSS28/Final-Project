@@ -17,6 +17,7 @@
   </nav>
 
   <main class="app">
+    <!-- HOME VIEW -->
     <section id="homeView" class="view active home-view">
       <div class="home-overlay">
         <h1>Penalty Tours</h1>
@@ -59,29 +60,18 @@
       </div>
     </section>
 
+    <!-- GAME VIEW -->
     <section id="gameView" class="view">
+      <!-- Hidden game data for JavaScript -->
       <div class="game-header">
-        <div>
-          <p>Stadium</p>
-          <h2 id="stadiumName">Field</h2>
-        </div>
-
-        <div>
-          <p>Round</p>
-          <h2 id="roundDisplay">1 / 5</h2>
-        </div>
-
-        <div>
-          <p>Score</p>
-          <h2><span id="userScoreText">0</span> - <span id="computerScoreText">0</span></h2>
-        </div>
-
-        <div>
-          <p>Role</p>
-          <h2 id="roleText">Shooter</h2>
-        </div>
+        <span id="stadiumName">Field</span>
+        <span id="roundDisplay">1 / 5</span>
+        <span id="userScoreText">0</span>
+        <span id="computerScoreText">0</span>
+        <span id="roleText">Shooter</span>
       </div>
 
+      <!-- Circle scoreboard -->
       <div class="penalty-scoreboard">
         <div>
           <h3>Red Team</h3>
@@ -94,6 +84,7 @@
         </div>
       </div>
 
+      <!-- Match area -->
       <div id="matchArea" class="match-area field-ground">
         <div class="top-decoration">
           <span id="miniScore">RED 0 : 0 BLUE</span>
@@ -103,6 +94,7 @@
 
         <div id="resultPopup" class="shot-popup">GOAL!</div>
 
+        <!-- Goal -->
         <div class="goal">
           <div id="keeper" class="keeper blue-keeper">
             <div class="keeper-head"></div>
@@ -135,9 +127,14 @@
       <div class="game-buttons">
         <button onclick="resetMatch()">Restart Match</button>
         <button onclick="goHome()">Change Stadium</button>
+
+        <div class="role-pill">
+          Role: <span id="roleTextBottom">Shooter</span>
+        </div>
       </div>
     </section>
 
+    <!-- FINAL MODAL -->
     <div id="finalModal" class="final-modal hidden">
       <div id="confettiBox"></div>
 
@@ -179,7 +176,14 @@
   </main>
 
   <script>
-    const zones = ["top-left", "top-center", "top-right", "low-left", "low-center", "low-right"];
+    const zones = [
+      "top-left",
+      "top-center",
+      "top-right",
+      "low-left",
+      "low-center",
+      "low-right"
+    ];
 
     let round = 1;
     let userScore = 0;
@@ -199,13 +203,14 @@
     const gameView = document.getElementById("gameView");
     const matchArea = document.getElementById("matchArea");
 
+    const stadiumName = document.getElementById("stadiumName");
     const roundDisplay = document.getElementById("roundDisplay");
     const userScoreText = document.getElementById("userScoreText");
     const computerScoreText = document.getElementById("computerScoreText");
     const miniScore = document.getElementById("miniScore");
     const roleText = document.getElementById("roleText");
+    const roleTextBottom = document.getElementById("roleTextBottom");
     const instructionText = document.getElementById("instructionText");
-    const stadiumName = document.getElementById("stadiumName");
 
     const shooter = document.getElementById("shooter");
     const keeper = document.getElementById("keeper");
@@ -216,15 +221,26 @@
 
     document.querySelectorAll(".goal button").forEach(button => {
       button.addEventListener("click", () => {
-        if (!locked) playTurn(button.dataset.zone);
+        if (!locked) {
+          playTurn(button.dataset.zone);
+        }
       });
     });
+
+    function setRole(role) {
+      roleText.textContent = role;
+      roleTextBottom.textContent = role;
+    }
 
     function showView(viewName) {
       homeView.classList.remove("active");
       gameView.classList.remove("active");
-      if (viewName === "home") homeView.classList.add("active");
-      else gameView.classList.add("active");
+
+      if (viewName === "home") {
+        homeView.classList.add("active");
+      } else {
+        gameView.classList.add("active");
+      }
     }
 
     function goHome() {
@@ -236,6 +252,7 @@
 
     function chooseStadium(name) {
       stadiumName.textContent = name;
+
       document.body.className = "";
       matchArea.className = "match-area";
 
@@ -299,7 +316,7 @@
 
           setTimeout(() => {
             userIsShooting = false;
-            roleText.textContent = "Goalkeeper";
+            setRole("Goalkeeper");
             instructionText.textContent = "Computer is shooting. Click a zone to save.";
             resetBall();
             locked = false;
@@ -349,8 +366,10 @@
 
             suddenUserGoal = null;
             suddenComputerGoal = null;
+
             userIsShooting = true;
-            roleText.textContent = "Shooter";
+            setRole("Shooter");
+
             instructionText.textContent = suddenDeath
               ? "Sudden death: click a zone to shoot."
               : "Click a zone to shoot.";
@@ -430,8 +449,13 @@
         const circle = document.createElement("span");
         circle.classList.add("score-circle");
 
-        if (results[i] === "goal") circle.classList.add("goal-circle");
-        if (results[i] === "save") circle.classList.add("save-circle");
+        if (results[i] === "goal") {
+          circle.classList.add("goal-circle");
+        }
+
+        if (results[i] === "save") {
+          circle.classList.add("save-circle");
+        }
 
         container.appendChild(circle);
       }
@@ -476,14 +500,16 @@
       userScoreText.textContent = "0";
       computerScoreText.textContent = "0";
       miniScore.textContent = "RED 0 : 0 BLUE";
-      roleText.textContent = "Shooter";
+      setRole("Shooter");
       instructionText.textContent = "Click a zone to shoot.";
 
       updateCircles();
       resetBall();
       confettiBox.innerHTML = "";
 
-      if (closeModal) finalModal.classList.add("hidden");
+      if (closeModal) {
+        finalModal.classList.add("hidden");
+      }
     }
 
     function playTone(frequency, duration, type = "sine") {
